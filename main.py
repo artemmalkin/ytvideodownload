@@ -33,6 +33,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     youtube_url = update.message.text
     
     try:
+        # Сообщаем пользователю об ожидании
+        await update.message.reply_text("Обрабатываю видео, пожалуйста, подождите...")
+
         # Создаем объект YouTube с использованием переданной URL-адреса
         yt = YouTube(youtube_url)
 
@@ -59,6 +62,9 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     resolution, youtube_url = query_data
 
     try:
+        # Сообщаем пользователю об ожидании
+        await query.edit_message_text(text="Получаю ссылку для скачивания, пожалуйста, подождите...")
+
         # Создаем объект YouTube с использованием переданной URL-адреса
         yt = YouTube(youtube_url)
 
@@ -76,8 +82,8 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         # Если возникла ошибка, печатаем её и обрабатываем случай возрастного ограничения
         print(f"Произошла ошибка: {e}")
-        await query.edit_message_text(text="Не удалось получить ссылку для скачивания. Проверьте правильность URL или попробуйте позже.")
 
+        
 # Основная часть программы
 if __name__ == '__main__':
     # Создаем экземпляр приложения для бота, используя токен из конфигурационного файла
